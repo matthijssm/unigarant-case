@@ -20,7 +20,7 @@ const coverageAdvices: Record<CoverageAdvice, { title: string; description: stri
     },
 };
 
-export function InsuranceCoverageAdvice(props: InsuranceCoverageAdviceProps) {
+export function CoverageAdviceCard(props: InsuranceCoverageAdviceProps) {
     const content = coverageAdvices[props.advice];
 
     return (

@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${berninaSans.variable} ${clanPro.variable} antialiased font-sans py-8`}>
                 <Providers>
-                    <main className="container">
+                    <main className="container px-4">
                         <div className="max-w-lg mx-auto rounded-lg border-background-border border p-8">
                             {children}
                         </div>

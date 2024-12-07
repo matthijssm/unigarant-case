@@ -11,15 +11,15 @@ import {
     CoverageAdviceFormSchemaInput,
     coverageAdviceFormSchema,
     CoverageAdviceFormSchemaOutput,
-} from "../_schemas/coverageAdviceSchema";
+} from "../_schemas/coverageAdviceFormSchema";
 import { useMutation } from "react-query";
 import { getCoverageAdvice } from "../actions";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 import { CoverageAdvice } from "../types";
-import { InsuranceCoverageAdvice } from "./InsuranceCoverageAdvice";
+import { CoverageAdviceCard } from "./CoverageAdviceCard";
 
-export function TravelInsuranceForm() {
+export function CoverageAdviceForm() {
     const [advice, setAdvice] = useState<CoverageAdvice>();
     const form = useForm<CoverageAdviceFormSchemaInput, any, CoverageAdviceFormSchemaOutput>({
         resolver: zodResolver(coverageAdviceFormSchema),
@@ -116,7 +116,7 @@ export function TravelInsuranceForm() {
                     Vraag advies
                 </Button>
 
-                {advice && <InsuranceCoverageAdvice advice={advice} />}
+                {advice && <CoverageAdviceCard advice={advice} />}
             </div>
         </Form>
     );

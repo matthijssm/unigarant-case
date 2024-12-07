@@ -1,4 +1,4 @@
-import { TravelInsuranceForm } from "./_components/TravelInsuranceForm";
+import { CoverageAdviceForm } from "./_components/CoverageAdviceForm";
 
 export default function Home() {
     return (
@@ -11,7 +11,7 @@ export default function Home() {
                 </p>
             </div>
 
-            <TravelInsuranceForm />
+            <CoverageAdviceForm />
         </div>
     );
 }

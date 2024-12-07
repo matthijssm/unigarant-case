@@ -1,6 +1,6 @@
 "use server";
 
-import { CoverageAdviceFormSchemaInput, CoverageAdviceFormSchemaOutput } from "./_schemas/coverageAdviceSchema";
+import { CoverageAdviceFormSchemaOutput } from "./_schemas/coverageAdviceFormSchema";
 import { CoverageAdvice } from "./types";
 
 const CHANGE_COVERAGE_REQUIREMENTS = {

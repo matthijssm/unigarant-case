@@ -13,11 +13,14 @@ import {
     CoverageAdviceFormSchemaOutput,
 } from "../_schemas/coverageAdviceSchema";
 import { useMutation } from "react-query";
+import { getCoverageAdvice } from "../actions";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
+import { CoverageAdvice } from "../types";
 import { InsuranceCoverageAdvice } from "./InsuranceCoverageAdvice";
 
 export function TravelInsuranceForm() {
+    const [advice, setAdvice] = useState<CoverageAdvice>();
     const form = useForm<CoverageAdviceFormSchemaInput, any, CoverageAdviceFormSchemaOutput>({
         resolver: zodResolver(coverageAdviceFormSchema),
         defaultValues: {
@@ -32,12 +35,25 @@ export function TravelInsuranceForm() {
         isLoading,
         isError,
     } = useMutation({
-        // mutationFn: getCoverageAdvice,
+        mutationFn: getCoverageAdvice,
+        onSuccess: (data) => setAdvice(data.advice),
+        onError: (error) => {
+            console.error(error);
+            setAdvice(undefined);
+        },
     });
 
     const onSubmit: SubmitHandler<CoverageAdviceFormSchemaOutput> = async (values) => {
         getAdvice(values);
     };
+
+    useEffect(() => {
+        const { unsubscribe } = form.watch(() => {
+            setAdvice(undefined);
+        });
+
+        return unsubscribe;
+    }, [form.watch]);
 
     return (
         <Form<CoverageAdviceFormSchemaInput, any, CoverageAdviceFormSchemaOutput>
@@ -100,6 +116,7 @@ export function TravelInsuranceForm() {
                     Vraag advies
                 </Button>
 
+                {advice && <InsuranceCoverageAdvice advice={advice} />}
             </div>
         </Form>
     );

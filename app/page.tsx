@@ -1,6 +1,8 @@
+import { TravelInsuranceForm } from "./_components/TravelInsuranceForm";
+
 export default function Home() {
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
                 <h2 className="font-heading text-xl text-brand-blue">Keuzehulp voor je verzekering</h2>
                 <p>
@@ -8,6 +10,8 @@ export default function Home() {
                     zorgeloze reis. Jij kiest wat bij jouw plannen past!
                 </p>
             </div>
+
+            <TravelInsuranceForm />
         </div>
     );
 }

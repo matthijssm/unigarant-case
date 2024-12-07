@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Providers } from "./_components/Providers";
 
 const berninaSans = localFont({
     src: "./fonts/BerninaSansRegular.woff",
@@ -27,9 +28,13 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${berninaSans.variable} ${clanPro.variable} antialiased font-sans py-8`}>
-                <main className="container">
-                    <div className="max-w-lg mx-auto rounded-lg border-background-border border p-8">{children}</div>
-                </main>
+                <Providers>
+                    <main className="container">
+                        <div className="max-w-lg mx-auto rounded-lg border-background-border border p-8">
+                            {children}
+                        </div>
+                    </main>
+                </Providers>
             </body>
         </html>
     );

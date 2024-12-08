@@ -32,7 +32,7 @@ describe("CoverageAdviceForm", () => {
         renderWithQueryClient(<CoverageAdviceForm />);
         expect(screen.getByLabelText("Hoeveel dagen ga je reizen?")).toBeInTheDocument();
         expect(screen.getByText("Hoeveel personen gaan er op reis?")).toBeInTheDocument();
-        expect(screen.getByText("In welke landen wil je reizen?")).toBeInTheDocument();
+        expect(screen.getByText("Waar gaat de reis heen?")).toBeInTheDocument();
     });
 
     it("displays an error message when no requirements match the travelers count", async () => {

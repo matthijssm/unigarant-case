@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CoverageAdvice } from "../types";
+import Link from "next/link";
 
 type InsuranceCoverageAdviceProps = {
     advice: CoverageAdvice;
@@ -27,8 +28,9 @@ export function CoverageAdviceCard(props: InsuranceCoverageAdviceProps) {
         <div className="p-8 bg-background-muted rounded-lg grid gap-2">
             <h2 className="font-heading text-xl text-brand-blue">{content.title}</h2>
             <p className="text-sm">{content.description}</p>
-            {/* TODO: Add link to the correct action */}
-            <Button type="button">{content.buttonLabel}</Button>
+            <Button type="button" asChild>
+                <Link href="https://www.anwb.nl/verzekeringen">{content.buttonLabel}</Link>
+            </Button>
         </div>
     );
 }

@@ -95,7 +95,7 @@ export function CoverageAdviceForm() {
                     />
                 </Field>
 
-                <Field name="destinationCoverage" label="In welke landen wil je reizen?">
+                <Field name="destinationCoverage" label="Waar gaat de reis heen?">
                     <Controller
                         name="destinationCoverage"
                         control={form.control}

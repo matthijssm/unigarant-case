@@ -1,12 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { CoverageAdviceForm } from "../../app/_components/CoverageAdviceForm";
-import { getCoverageAdvice } from "../../app/actions";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "@testing-library/jest-dom";
-
-jest.mock("../../app/actions", () => ({
-    getCoverageAdvice: jest.fn(),
-}));
 
 describe("CoverageAdviceForm", () => {
     const renderWithQueryClient = (ui: JSX.Element) => {
@@ -25,7 +20,10 @@ describe("CoverageAdviceForm", () => {
     });
 
     beforeEach(() => {
-        jest.clearAllMocks(); // Clear mocks
+        jest.clearAllMocks();
+
+        // Mock fetch
+        global.fetch = jest.fn();
     });
 
     it("renders the form with initial values", () => {
@@ -36,7 +34,8 @@ describe("CoverageAdviceForm", () => {
     });
 
     it("displays an error message when no requirements match the travelers count", async () => {
-        (getCoverageAdvice as jest.Mock).mockRejectedValueOnce(new Error());
+        // Mock a rejected fetch response similar to a server error
+        (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Fetch error"));
 
         renderWithQueryClient(<CoverageAdviceForm />);
 
@@ -54,8 +53,16 @@ describe("CoverageAdviceForm", () => {
     });
 
     it("calls getCoverageAdvice with correct values and shows advice", async () => {
-        const adviceResponse = { advice: "changeCoverage" };
-        (getCoverageAdvice as jest.Mock).mockResolvedValueOnce(adviceResponse);
+        const adviceResponse = {
+            status: "success",
+            data: { advice: "changeCoverage" },
+        };
+
+        // Mock a successful fetch response
+        (global.fetch as jest.Mock).mockResolvedValueOnce({
+            ok: true,
+            json: async () => adviceResponse,
+        });
 
         renderWithQueryClient(<CoverageAdviceForm />);
 
@@ -66,11 +73,20 @@ describe("CoverageAdviceForm", () => {
         fireEvent.click(screen.getByRole("button", { name: /Vraag advies/i }));
 
         await waitFor(() => {
-            expect(getCoverageAdvice).toHaveBeenCalledWith({
-                travelDuration: 20,
-                travelersCount: 1,
-                destinationCoverage: "europe",
-            });
+            expect(global.fetch).toHaveBeenCalledWith(
+                "http://localhost:3001/api/coverage-advice",
+                expect.objectContaining({
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        travelDuration: "20", // Match current input values
+                        travelersCount: "1",
+                        destinationCoverage: "europe",
+                    }),
+                }),
+            );
         });
 
         await waitFor(() => {

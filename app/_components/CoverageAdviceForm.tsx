@@ -13,11 +13,11 @@ import {
     CoverageAdviceFormSchemaOutput,
 } from "../_schemas/coverageAdviceFormSchema";
 import { useMutation } from "react-query";
-import { getCoverageAdvice } from "../actions";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 import { CoverageAdvice } from "../types";
 import { CoverageAdviceCard } from "./CoverageAdviceCard";
+import { CoverageAdviceResponse } from "@/server/types";
 
 export function CoverageAdviceForm() {
     const [advice, setAdvice] = useState<CoverageAdvice>();
@@ -35,13 +35,29 @@ export function CoverageAdviceForm() {
         isLoading,
         isError,
     } = useMutation({
-        mutationFn: getCoverageAdvice,
-        onSuccess: (data) => setAdvice(data.advice),
+        mutationFn: async (values: CoverageAdviceFormSchemaInput) => {
+            const request = await fetch("http://localhost:3001/api/coverage-advice", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+            });
+
+            const response = (await request.json()) as CoverageAdviceResponse;
+
+            if (response.status === "error") {
+                throw new Error(response.message);
+            }
+
+            return response;
+        },
+        onSuccess: (response) => setAdvice(response.data.advice),
         onError: () => setAdvice(undefined),
     });
 
-    const onSubmit: SubmitHandler<CoverageAdviceFormSchemaOutput> = async (values) => {
-        getAdvice(values);
+    const onSubmit: SubmitHandler<CoverageAdviceFormSchemaOutput> = async () => {
+        getAdvice(form.getValues());
     };
 
     useEffect(() => {

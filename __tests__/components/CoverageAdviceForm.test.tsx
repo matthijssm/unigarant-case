@@ -20,6 +20,8 @@ describe("CoverageAdviceForm", () => {
             unobserve() {}
             disconnect() {}
         };
+
+        global.console.error = jest.fn();
     });
 
     beforeEach(() => {

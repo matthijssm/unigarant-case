@@ -37,10 +37,7 @@ export function CoverageAdviceForm() {
     } = useMutation({
         mutationFn: getCoverageAdvice,
         onSuccess: (data) => setAdvice(data.advice),
-        onError: (error) => {
-            console.error(error);
-            setAdvice(undefined);
-        },
+        onError: () => setAdvice(undefined),
     });
 
     const onSubmit: SubmitHandler<CoverageAdviceFormSchemaOutput> = async (values) => {
@@ -53,7 +50,7 @@ export function CoverageAdviceForm() {
         });
 
         return unsubscribe;
-    }, [form.watch]);
+    }, [form]);
 
     return (
         <Form<CoverageAdviceFormSchemaInput, any, CoverageAdviceFormSchemaOutput>

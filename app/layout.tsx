@@ -16,8 +16,8 @@ const clanPro = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "ANWB Verzekeren Keuzehulp",
-    description: "Deze tool helpt je bij he",
+    title: "ANWB Reisverzekering Keuzehulp",
+    description: "Deze tool helpt je bij het maken van een keuze voor je reisverzekering.",
 };
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 import { getCoverageAdvice } from "../../app/actions";
 import { CoverageAdviceFormSchemaOutput } from "../../app/_schemas/coverageAdviceFormSchema";
 
-describe("getCoverageAdvice", () => {
+describe("Action: Get coverage advice", () => {
     it("should advise to change coverage when travel duration is equal to maxDays for Europe", async () => {
         const input: CoverageAdviceFormSchemaOutput = {
             travelDuration: 28,
@@ -11,7 +11,7 @@ describe("getCoverageAdvice", () => {
 
         const result = await getCoverageAdvice(input);
 
-        expect(result).toEqual({ advice: "changeCoverage" });
+        expect(result).toEqual({ advice: "CHANGE_COVERAGE" });
     });
 
     it("should advise to change coverage when travel duration exceeds maxDays for World", async () => {
@@ -23,7 +23,7 @@ describe("getCoverageAdvice", () => {
 
         const result = await getCoverageAdvice(input);
 
-        expect(result).toEqual({ advice: "changeCoverage" });
+        expect(result).toEqual({ advice: "CHANGE_COVERAGE" });
     });
 
     it("should advise to get temporary coverage when travel duration is less than maxDays", async () => {
@@ -35,7 +35,7 @@ describe("getCoverageAdvice", () => {
 
         const result = await getCoverageAdvice(input);
 
-        expect(result).toEqual({ advice: "getTemporaryCoverage" });
+        expect(result).toEqual({ advice: "GET_TEMPORARY_COVERAGE" });
     });
 
     it("should throw an error when no requirements match the travelers count", async () => {
@@ -59,6 +59,6 @@ describe("getCoverageAdvice", () => {
 
         const result = await getCoverageAdvice(input);
 
-        expect(result).toEqual({ advice: "getTemporaryCoverage" });
+        expect(result).toEqual({ advice: "GET_TEMPORARY_COVERAGE" });
     });
 });

@@ -7,13 +7,13 @@ type InsuranceCoverageAdviceProps = {
 };
 
 const coverageAdvices: Record<CoverageAdvice, { title: string; description: string; buttonLabel: string }> = {
-    changeCoverage: {
+    CHANGE_COVERAGE: {
         title: "Wij raden je aan je huidige dekking aan te passen",
         description:
             "Het aantal dagen dat je reist in combinatie met het aantal reizigers maakt het voordeliger je huidige dekking aan te passen.",
         buttonLabel: "Wijzig je huidige dekking",
     },
-    getTemporaryCoverage: {
+    GET_TEMPORARY_COVERAGE: {
         title: "Wij raden je aan een tijdelijke dekking te nemen voor deze reis",
         description:
             "Het aantal dagen dat je reist in combinatie met het aantal reizigers maakt het voordeliger een tijdelijke dekking te nemen voor deze reis.",

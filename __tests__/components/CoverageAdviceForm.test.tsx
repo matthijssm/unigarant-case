@@ -8,7 +8,7 @@ jest.mock("../../app/actions", () => ({
     getCoverageAdvice: jest.fn(),
 }));
 
-describe("CoverageAdviceForm", () => {
+describe("Component: CoverageAdviceForm", () => {
     const renderWithQueryClient = (ui: JSX.Element) => {
         const queryClient = new QueryClient();
         return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
@@ -54,7 +54,7 @@ describe("CoverageAdviceForm", () => {
     });
 
     it("calls getCoverageAdvice with correct values and shows advice", async () => {
-        const adviceResponse = { advice: "changeCoverage" };
+        const adviceResponse = { advice: "CHANGE_COVERAGE" };
         (getCoverageAdvice as jest.Mock).mockResolvedValueOnce(adviceResponse);
 
         renderWithQueryClient(<CoverageAdviceForm />);

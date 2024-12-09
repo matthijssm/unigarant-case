@@ -1,1 +1,1 @@
-export type CoverageAdvice = "changeCoverage" | "getTemporaryCoverage";
+export type CoverageAdvice = "CHANGE_COVERAGE" | "GET_TEMPORARY_COVERAGE";

@@ -30,11 +30,11 @@ export async function getCoverageAdvice(input: CoverageAdviceFormSchemaOutput): 
 
     if (travelDuration >= requirements.maxDays) {
         return {
-            advice: "changeCoverage",
+            advice: "CHANGE_COVERAGE",
         };
     }
 
     return {
-        advice: "getTemporaryCoverage",
+        advice: "GET_TEMPORARY_COVERAGE",
     };
 }

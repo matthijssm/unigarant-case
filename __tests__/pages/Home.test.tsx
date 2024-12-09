@@ -7,7 +7,7 @@ jest.mock("../../app/_components/CoverageAdviceForm", () => ({
     CoverageAdviceForm: () => <div>Mocked Coverage Advice Form</div>,
 }));
 
-describe("Home Page", () => {
+describe("Page: Homepage", () => {
     it("renders the heading and description text", () => {
         render(<Home />);
 
